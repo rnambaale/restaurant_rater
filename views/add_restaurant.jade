@@ -1,0 +1,25 @@
+extends layout
+
+block content
+	div.row
+		div.background
+			div.cover
+	div.row
+		div.home
+			div.col-md-6.col-md-offset-3
+				div.login
+					form(method='POST',action='/restaurants/add')
+						div.form-group
+							label Name
+							input.form-control(type='text',name='name',placeholder='Name', required)
+						div.form-group
+							label Location
+							input.form-control(type='text',name='location',placeholder='Location', required)
+						div.form-group
+							label Latitude
+							input.form-control(type='text',name='latitude',placeholder='Latitude', required)
+						div.form-group
+							label Longitude
+							input.form-control(type='text',name='longitude',placeholder='Longitude', 'required')
+						div.form-group
+							button.btn.btn-success.btn-block(type='submit') Submit

@@ -1,0 +1,42 @@
+extends layout
+
+block content
+	.row
+		.col-md-9
+			.rest-banner(style="background-image: url('/images/default-rest.jpg');")
+			.row
+				.col-md-12
+					h3.rest-title-single= the_restaurant.name
+					.rest-rating-single 4.4
+
+			.row
+				.col-md-12
+					.rest-nav
+						ul.rest-nav-container
+							li
+								a(href="/restaurants/restaurant/"+the_restaurant.slug) Overview
+							li
+								a(href="/restaurants/reviews/"+the_restaurant.slug) Reviews
+				.col-md-12
+					.section
+						h2 Reviews
+						form.form-inline(action="/restaurants/reviews/"+the_restaurant.slug, method="POST")
+							.input-group.col-md-12
+								input.form-control(type="text", name="review", placeholder="Write a review", required)
+								span.input-group-btn
+									button.btn.btn-success(type="submit") Publish Review
+							.form-group
+								label(for="input-1-xs", class="control-label") Your Rating
+								input(id="input-1-xs", name="rating", class="rating rating-loading", data-min="0", data-max="5", data-step="0.5", data-show-clear="false", data-size="xs")
+				.col-md-12
+					each review in the_reviews
+						.row.review
+							.col-md-2
+								.review-image(style="background-image: url('/images/avatar.png');")
+							.col-md-10
+								h3.rest-title= review.user
+								p= "Rated "+review.rating+" "+review.review
+								small
+									time.timeago(datetime=""+review.posted_on+"")
+			.col-md-3
+		.col-md-12

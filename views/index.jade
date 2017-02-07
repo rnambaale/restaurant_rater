@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	.row
+		each restaurant in restaurants
+			.col-md-4
+				a.rest(href='/restaurants/restaurant/'+restaurant.slug)
+					.rest-image(style="background-image: url('/images/default-rest.jpg');")
+						.rest-rating= restaurant.review_average
+					h3.rest-title= restaurant.name
+					.rest-location= restaurant.location

@@ -1,0 +1,63 @@
+extends layout
+
+block content
+	.row
+		.col-md-9
+			.rest-profile.section-segment
+				.rest-banner(style="background-image: url('/images/default-rest.jpg');")
+				.col-md-12
+					h1.rest-title-single= the_restaurant.name
+					.rest-rating-single= the_restaurant.review_average
+
+			//.row.rest-nav-row.section-segment(data-spy="affix",data-offset-top="60")
+			.row.rest-nav-row.section-segment
+				.col-md-12
+					.rest-nav
+						ul.rest-nav-container
+							li
+								a(href="#overview") Overview
+							li
+								a(href="#reviews") Reviews
+			.row.about-section.section-segment(id="overview")
+				.col-md-12
+					.section
+						h2 About
+						p Location
+						=the_restaurant.location
+
+			.row.review-section.section-segment(id="reviews")
+				.col-md-12
+					.section
+						h2 Reviews
+						if (typeof(session) !== 'undefined')
+							form(method='post', action='')
+								form.form-inline(action='', method="post")
+									.input-group.col-md-12
+										input.form-control(type="text", name="review", placeholder="Write a review", required)
+										span.input-group-btn
+											button.btn.btn-success(type="submit") Publish Review
+									.form-group
+										label(for="input-1-xs", class="control-label") Your Rating
+										input(id="input-1-xs", name="rating", class="rating rating-loading", data-min="0", data-max="5", data-step="0.5", data-show-clear="false", data-size="xs")
+						else
+							a.btn.btn-primary.btn-sm.pull-right(href='/login?redirect=restaurants/restaurant/'+the_restaurant.slug) Please Login to review
+
+						each review in reviews
+							.row.review
+								.col-md-12
+									.media
+										.media-left
+											a( href='#')
+												img.media-object(src='/images/default-rest.jpg', width='100px', height='100px')
+
+										.media-body
+											h4.media-heading= review.user
+											p
+												small
+													span(data-livestamp=''+review.posted_on+'')
+
+											p
+												span.rating= 'RATED '+review.rating+' '
+												=review.review
+		.col-md-3
+		.col-md-12
